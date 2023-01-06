@@ -1,0 +1,54 @@
+<template>
+    <lightning-card title="Quiz App in Lwc">
+        <div class="slds-m-around_medium">
+            
+            
+            <form>
+                <template for:each={myQuestions} for:item="quiz">
+                    <div key={quiz.id} class="slds-m-around_bottom">
+                        <div><strong>{quiz.id} - {quiz.question} </strong></div>
+
+                        <div class="slds-grid slds-gutters slds-p-bottm_around">
+                            <div class="slds-col slds-m-bottm_around">
+                                <input type="radio" name={quiz.id} value="a" onchange={changeHandler} />
+                                {quiz.answers.a}
+                            </div>
+                            <div class="slds-col ">
+                                <input type="radio" name={quiz.id} value="b" onchange={changeHandler} />
+                                {quiz.answers.b}
+                            </div>
+                            <div class="slds-col">
+                                <input type="radio" name={quiz.id} value="c" onchange={changeHandler} />
+                                {quiz.answers.c}
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                <lightning-button
+                    variant="brand" 
+                    type="submit" 
+                    label="Submit" 
+                    title="Submit Quiz"
+                    onclick={submitHandler} 
+                    class="slds-m-around-_small"
+                    disabled={allNotSelected}>
+
+                </lightning-button>
+
+                <lightning-button 
+                    variant="brand" 
+                    onclick={resetHandler} 
+                    type="reset" 
+                    label="Reset" 
+                    title="Rest quiz"
+                    class="slds-m-around-_small">
+                </lightning-button>
+
+                <template if:true={isSubmitted}>
+                    <div class={isScoreFull}>You have Scored {correctAnswers} out of {myQuestions.length} </div>
+                </template>
+
+            </form>
+        </div>
+    </lightning-card>
+</template>
